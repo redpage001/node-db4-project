@@ -13,34 +13,37 @@ exports.up = function(knex) {
 
     .createTable("recipe_ingredient", tbl => {
         tbl.increments();
-        tbl.interger("recipe_id")
+        tbl.integer("recipe_id")
             .unsigned()
             .notNullable()
             .references("recipes.id")
             .onUpdate("CASCADE")
             .onDelete("RESTRICT");
         
-        tbl.interger("ingredient_id")
+        tbl.integer("ingredient_id")
             .unsigned()
             .notNullable()
             .references("ingredients.id")
             .onUpdate("CASCADE")
             .onDelete("RESTRICT");
 
-        tbl.interger("quantity", 255).notNullable();
+        tbl.integer("quantity", 255).notNullable();
+        tbl.string("unit", 255)
     })
 
     .createTable("instructions", tbl => {
         tbl.increments();
-        tbl.interger("step_number", 255).unsigned().notNullable();
-        tbl.text("instructions").notNullable();
-        
-        tbl.interger("recipe_id")
+
+        tbl.integer("recipe_id")
             .unsigned()
             .notNullable()
             .references("recipes.id")
             .onUpdate("CASCADE")
             .onDelete("RESTRICT");
+            
+        tbl.integer("step_number", 255).unsigned().notNullable();
+        tbl.text("instructions").notNullable();
+        
     })
 };
 
